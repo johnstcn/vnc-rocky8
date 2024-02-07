@@ -4,13 +4,16 @@ RUN dnf install -y epel-release && dnf --enablerepo=epel group
 
 RUN dnf update -y && dnf install -y \
   bash \
+  bind-utils \
   chromium \
   curl \
   git \
   novnc \
+  openssh-clients \
   python3 \
   python3-pip \
   python3-websockify \
+  sudo \
   supervisor \
   tigervnc-server \
   wget && \
@@ -28,10 +31,12 @@ RUN useradd coder \
     --shell=/bin/bash \
     --uid=1000 \
     --user-group
+RUN usermod -aG wheel coder
 
 COPY files/etc/supervisord.conf /etc/supervisord.conf
 COPY files/etc/supervisord.d/* /etc/supervisord.d/
 COPY files/opt/vnc /opt/vnc
+COPY files/usr/share/novnc/index.html /usr/share/novnc/index.html
 RUN chmod +x /opt/vnc/xstartup
 RUN chown -R coder:coder /var/log/supervisor
 
