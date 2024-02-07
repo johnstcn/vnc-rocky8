@@ -31,8 +31,9 @@ RUN useradd coder \
     --create-home \
     --shell=/bin/bash \
     --uid=1000 \
-    --user-group
-RUN usermod -aG wheel coder
+    --user-group && \
+  usermod -aG wheel coder && \
+  echo "coder ALL=(ALL) NOPASSWD:ALL" >>/etc/sudoers.d/nopasswd
 
 COPY files/etc/supervisord.conf /etc/supervisord.conf
 COPY files/etc/supervisord.d/* /etc/supervisord.d/
