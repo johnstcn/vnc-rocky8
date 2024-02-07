@@ -7,6 +7,7 @@ RUN dnf update -y && dnf install -y \
   bind-utils \
   chromium \
   curl \
+  firefox \
   git \
   novnc \
   openssh-clients \
